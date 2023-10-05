@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
   def index
-    render 'quizzes/index'
+    @question = Question.first
   end
 end
