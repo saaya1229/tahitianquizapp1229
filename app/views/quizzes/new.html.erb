@@ -1,0 +1,7 @@
+<h1>クイズを始めます</h1>
+<p><%= @question.content %></p>
+<ul>
+  <% @question.choices.each do |choice| %>
+    <li><%= choice.content %></li>
+  <% end %>
+</ul>
