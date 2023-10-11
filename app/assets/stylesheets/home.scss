@@ -1,0 +1,20 @@
+.homepage {
+  background-image: asset-url('borabora.png');
+  background-size: cover;
+  height: 100%;
+}
+
+.home {
+  text-align: center;
+  padding: 80px 0;
+  color: white;
+
+  .home-title {
+    margin-bottom: 10px;
+  }
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
