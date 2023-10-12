@@ -5,5 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Choice.create(content: "選択肢1", correct: true, question_id: 1)
-Choice.create(content: "選択肢2", correct: false, question_id: 1)
+questions = Question.create([
+  { content: '質問1' },
+  { content: '質問2' },
+  # 他の質問を追加
+])
+
+# 質問に対する選択肢を作成
+questions.each do |question|
+  question.choices.create([
+    { content: '選択肢1', correct: true },
+    { content: '選択肢2', correct: false },
+    # 他の選択肢を追加
+  ])
+end
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_01_133933) do
+ActiveRecord::Schema.define(version: 2023_10_11_073818) do
 
   create_table "choices", force: :cascade do |t|
     t.string "content"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2023_10_01_133933) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "selected_choice"
   end
 
   add_foreign_key "choices", "questions"

@@ -1,7 +1,17 @@
-<h1>クイズを始めます</h1>
-<p><%= @question.content %></p>
-<ul>
-  <% @question.choices.each do |choice| %>
-    <li><%= choice.content %></li>
-  <% end %>
-</ul>
+<div class="quiz-question">
+  <p><%= @question.content %></p>
+  <ul>
+    <% @question.choices.each do |choice| %>
+      <li>
+        <%= form_for @question, url: check_answer_quizzes_path, remote: true do |f| %>
+          <%= f.radio_button(:selected_choice, choice.id) %>
+          <%= choice.content %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= form_tag(check_answer_quizzes_path, method: :post, remote: true) do %>
+  <%= submit_tag("回答する") %>
+<% end %>
