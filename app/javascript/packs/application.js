@@ -17,9 +17,13 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import $ from 'jquery'
+import axios from 'axios'
 
 document.addEventListener('DOMContentLoaded', () => {
   $('.home-title').on('click', () => {
-    window.alert('CLICKED')
+    axios.get('/')
+      .then((response) => {
+        console.log(response)
+      })
   })
 })
