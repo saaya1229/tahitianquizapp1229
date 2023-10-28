@@ -5,18 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-questions = Question.create([
-  { content: '質問1' },
-  { content: '質問2' },
-  # 他の質問を追加
-])
 
-# 質問に対する選択肢を作成
-questions.each do |question|
-  question.choices.create([
-    { content: '選択肢1', correct: true },
-    { content: '選択肢2', correct: false },
-    # 他の選択肢を追加
-  ])
+# 問題と選択肢を生成
+10.times do |i|
+  question = Question.create(content: "質問#{i + 1}")
+  
+  # 問題に対する選択肢を作成
+  2.times do |j|
+    correct = (j == 0) # 最初の選択肢を正解にする例
+    question.choices.create(content: "選択肢#{j + 1}", correct: correct)
+  end
 end
-

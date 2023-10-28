@@ -19,7 +19,7 @@ require("channels")
 import $ from 'jquery'
 import axios from 'axios'
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   $('.home-title').on('click', () => {
     axios.get('/')
       .then((response) => {

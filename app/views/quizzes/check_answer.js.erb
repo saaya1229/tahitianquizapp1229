@@ -1,0 +1,19 @@
+import $ from 'jquery'
+import axios from 'axios'
+
+// quizzes/check_answer.js.erb
+<% if @correct %>
+  alert('正解です！');
+<% else %>
+  alert('不正解です。');
+<% end %>
+
+// 次の問題を表示するAjaxリクエストを送信
+$.ajax({
+  type: 'GET',
+  url: '/next_question', // 次の問題を取得するURL
+  success: function(nextQuestion) {
+    $('.quiz-question p').text(nextQuestion.content);
+  }
+});
+<%= javascript_pack_tag 'check_answer' %>

@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   get '/quiz', to: 'quizzes#new'
 
-  resources :quizzes do
+  post '/check_answer', to: 'quizzes#check_answer'
+  get '/next_question', to: 'quizzes#next_question'
+
+
+  resources :quizzes, only: [:new] do
     post :check_answer, on: :collection
   end
 end
