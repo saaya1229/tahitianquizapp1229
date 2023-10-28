@@ -16,4 +16,13 @@ class QuizzesController < ApplicationController
       format.js
     end
   end
+
+  def next_question
+    # 次の問題を取得するロジックをここに追加
+    @next_question = Question.includes(:choices).order("RANDOM()").first
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end

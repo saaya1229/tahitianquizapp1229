@@ -1,36 +1,43 @@
-import $ from 'jquery'
-import axios from 'axios'
+import $ from 'jquery';
+import axios from 'axios';
 
-// quiz.js
-
-// クイズの選択肢がクリックされたときの処理
 $(document).ready(function() {
   $('.quiz-question li').on('click', function() {
-    // 選択された選択肢のIDを取得
     const choiceId = $(this).data('choice-id');
-
-    // Ajaxリクエストを送信
+    
     $.ajax({
       type: 'POST',
-      url: '/check_answer', // サーバーの処理を呼び出すURL
-      data: { choice_id: choiceId }, // 選択肢のIDを送信
+      url: '/check_answer',
+      data: { choice_id: choiceId },
       headers: {
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
       },
       success: function(response) {
-        // 正解または不正解のメッセージを表示
-        alert(response.message);
-
-        // 次の問題を取得するためのAjaxリクエストを送信
-        $.ajax({
-          type: 'GET',
-          url: '/next_question', // 次の問題を取得するURL
-          success: function(nextQuestion) {
-            // 次の問題を表示
-            $('.quiz-question p').text(nextQuestion.content);
-          }
-        });
+        // 回答の正誤に応じてメッセージを表示
+        if (response.correct) {
+          alert('正解です！');
+          // 次の問題を取得して表示
+          getNextQuestion();
+        } else {
+          alert('不正解です！');
+        }
       }
     });
   });
+  
+  // 何か画面をクリックしたときに次の問題に進む
+  $(document).on('click', function() {
+    getNextQuestion();
+  });
+  
+  // 次の問題を取得する関数
+  function getNextQuestion() {
+    $.ajax({
+      type: 'GET',
+      url: '/next_question',
+      success: function(nextQuestion) {
+        $('.quiz-question p').text(nextQuestion.content);
+      }
+    });
+  }
 });

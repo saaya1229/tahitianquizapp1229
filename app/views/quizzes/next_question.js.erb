@@ -1,0 +1,39 @@
+// next_question.js.erb
+
+<% if @next_question %>
+  // @next_question から次の問題の情報を取得
+  var nextQuestion = {
+    id: <%= @next_question.id %>,
+    content: '<%= @next_question.content %>',
+    choices: [
+      <% @next_question.choices.each do |choice| %>
+        {
+          id: <%= choice.id %>,
+          content: '<%= choice.content %>',
+        },
+      <% end %>
+    ]
+  };
+
+  // クライアント側で次の問題を表示する処理を追加
+  $('.quiz-question p').text(nextQuestion.content);
+  
+  // 選択肢のリストをクリア
+  $('.quiz-question ul').empty();
+
+  // 選択肢をリストに追加
+  nextQuestion.choices.forEach(function(choice) {
+    var li = $('<li data-choice-id="' + choice.id + '">');
+    var radio = $('<input type="radio" name="selected_choice" value="' + choice.id + '">');
+    var label = $('<label for="selected_choice_' + choice.id + '">' + choice.content + '</label>');
+    
+    li.append(radio);
+    li.append(label);
+    
+    $('.quiz-question ul').append(li);
+  });
+
+<% else %>
+  // 次の問題が見つからない場合の処理
+  alert('次の問題が見つかりませんでした。');
+<% end %>
