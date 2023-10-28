@@ -4,8 +4,8 @@
   <ul>
     <% @question.choices.each do |choice| %>
       <li>
-        <%= form_for @question, url: check_answer_quizzes_path, remote: true do |f| %>
-          <%= f.radio_button :selected_choice, choice.id, data: { question_id: @question.id } %>
+        <%= form_for :answer, url: check_answer_quizzes_path, remote: true do |f| %>
+          <%= f.radio_button "selected_choice_#{choice.id}", choice.id, data: { question_id: @question.id } %>
           <%= choice.content %>
         <% end %>
       </li>
