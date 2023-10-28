@@ -7,4 +7,13 @@ environment.loaders.append('module', {
   type: 'javascript/auto',
 })
 
+environment.config.merge({
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+})
+
+// ...
 module.exports = environment
