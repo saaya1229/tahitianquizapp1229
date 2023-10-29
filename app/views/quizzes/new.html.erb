@@ -4,16 +4,9 @@
   <p><%= @question.content %></p>
   <ul>
     <% @question.choices.each do |choice| %>
-      <li>
-        <%= form_for :answer, url: check_answer_quizzes_path, remote: true do |f| %>
-          <%= f.radio_button "selected_choice_#{choice.id}", choice.id, data: { question_id: @question.id } %>
-          <%= choice.content %>
-        <% end %>
+      <li data-choice-id="<%= choice.id %>">
+        <%= choice.content %>
       </li>
     <% end %>
   </ul>
 </div>
-
-<%= form_tag(check_answer_quizzes_path, method: :post, remote: true) do %>
-  <%= submit_tag("回答する") %>
-<% end %>
