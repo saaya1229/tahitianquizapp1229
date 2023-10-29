@@ -11,13 +11,14 @@ $(document).ready(function() {
       headers: {
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
       },
+      dataType: 'json',  // JSONデータを受け取ることを指定
       success: function(response) {
         if (response.correct) {
-          alert('正解です！');
+          alert(response.message);  // 正解不正解のメッセージを表示
           // 正解の場合、次の問題を取得して表示
           getNextQuestion();
         } else {
-          alert('不正解です。');
+          alert(response.message);  // 正解不正解のメッセージを表示
           // 不正解の場合、次の問題を表示せず、次に進むフラグを設定
           let canProceed = false;
           $(document).one('click', function() {
@@ -28,28 +29,3 @@ $(document).ready(function() {
     });
   });
 });
-
-function getNextQuestion() {
-  $.ajax({
-    type: 'GET',
-    url: '/next_question',
-    success: function(nextQuestion) {
-      // 次の問題を表示
-      $('.quiz-question p').text(nextQuestion.content);
-      // 選択肢を更新する方法を追加
-      updateChoices(nextQuestion.choices);
-    }
-  });
-}
-
-function updateChoices(choices) {
-  // 選択肢のリストをクリア
-  $('.quiz-question ul').empty();
-
-  // 選択肢をリストに追加
-  choices.forEach(function(choice) {
-    var li = $('<li data-choice-id="' + choice.id + '">');
-    li.text(choice.content);
-    $('.quiz-question ul').append(li);
-  });
-}
