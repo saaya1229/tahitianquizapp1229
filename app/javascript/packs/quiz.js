@@ -44,11 +44,30 @@ function getNextQuestion() {
       // 次の問題を表示
       if (nextQuestion) {
         $('.quiz-question p').text(nextQuestion.content);
-        // 選択肢を更新する方法を追加
-        updateChoices(nextQuestion.choices);
+        // 選択肢を更新
+        updateChoices(nextQuestion.choices); // updateChoices 関数を呼び出し
       } else {
         alert('次の問題が見つかりませんでした。');
       }
     }
   });
+}
+
+function updateChoices(choices) {
+  // 選択肢のリストをクリア
+  $('.quiz-question ul').empty();
+
+  if (choices && choices.length > 0) {
+    // 選択肢が存在し、長さが1以上である場合にのみ処理を行う
+    choices.forEach(function(choice) {
+      var li = $('<li data-choice-id="' + choice.id + '">');
+      var radio = $('<input type="radio" name="selected_choice" value="' + choice.id + '">');
+      var label = $('<label for="selected_choice_' + choice.id + '">' + choice.content + '</label>');
+      
+      li.append(radio);
+      li.append(label);
+      
+      $('.quiz-question ul').append(li);
+    });
+  }
 }

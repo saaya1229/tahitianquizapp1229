@@ -26,26 +26,45 @@ class QuizzesController < ApplicationController
       format.json { render json: response_data }
     end
   end
+
+  def answer_is_correct(choice_id)
+    # 選択肢のデータを取得
+    choice = Choice.find(choice_id)
   
-
-  def next_question
-    # 次の問題を取得するロジックをここに追加
-    @next_question = Question.includes(:choices).order("RANDOM()").first
-
-    respond_to do |format|
-      format.js
+    # 選択肢が正解かどうかを確認
+    if choice.correct?
+      return true  # 正解の場合
+    else
+      return false  # 不正解の場合
     end
   end
-end
 
-def answer_is_correct(choice_id)
-  # 選択肢のデータを取得
-  choice = Choice.find(choice_id)
-
-  # 選択肢が正解かどうかを確認
-  if choice.correct?
-    return true  # 正解の場合
-  else
-    return false  # 不正解の場合
+  def next_question
+    # 次の問題を取得するロジック
+    @next_question = Question.includes(:choices).order("RANDOM()").first
+  
+    respond_to do |format|
+      format.json { render json: next_question_data }
+    end
   end
+  
+  private
+  
+  def next_question_data
+    if @next_question
+      {
+        id: @next_question.id,
+        content: @next_question.content,
+        choices: @next_question.choices.map do |choice|
+          {
+            id: choice.id,
+            content: choice.content
+          }
+        end
+      }
+    else
+      nil
+    end
+  end
+  
 end
