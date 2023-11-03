@@ -1,16 +1,18 @@
 import $ from 'jquery';
 import axios from 'axios';
 
-$(document).ready(function() {
-  let canProceed = false; // 初期状態では進行不可
+document.addEventListener("DOMContentLoaded", function() {
   let currentQuestion = 1; // 現在の問題番号をトラッキング
+  let totalQuestions = 10; // クイズの総問題数
+  let canProceed = false; // クリックで次の問題に進めるようにフラグを初期化
 
   function initializeQuiz() {
     getNextQuestion(); // 最初の問題を取得して表示
   }
 
   function handleAnswerClick(choiceId) {
-    if (!canProceed) {
+    if (canProceed) {
+      canProceed = false;
       $.ajax({
         type: 'POST',
         url: '/check_answer',
@@ -20,23 +22,21 @@ $(document).ready(function() {
         },
         dataType: 'json',
         success: function(response) {
-          alert(response.message);
           if (response.correct) {
-            // 正解の場合、次の問題を取得して表示
-            currentQuestion++; // 問題番号を更新
-            if (currentQuestion <= 10) {
+            $('.correct-message').show(); // 正解のメッセージを表示
+            canProceed = false; // 正解メッセージが表示中は進行不可にする
+            // 正解メッセージを1秒で非表示にする
+            setTimeout(function() {
+              $('.correct-message').hide();
+              canProceed = true; // 1秒後に進行を再び有効にする
               getNextQuestion();
-            } else {
-              // クイズ終了条件：10問目の後に結果を表示するなどの処理を追加
-              alert('クイズ終了。結果を表示する処理を追加してください。');
-            }
+            }, 1000); // 1000ミリ秒 (1秒) 後に非表示にする
           } else {
-            // 不正解の場合、次に進むフラグを設定
-            canProceed = true;
-
-            // 不正解の場合、次の問題に進むためのクリックリスナーを設定
-            // ユーザーがどこかをクリックしたら次の問題に進めるようにする
-            $(document).one('click', function() {
+            $('.incorrect-message').show(); // 不正解のメッセージを表示
+            // 不正解の場合、クリックで次の問題に進むようにイベントリスナーを設定
+            $('.question-choice').one('click', function() {
+              $('.incorrect-message').hide(); // メッセージを非表示に
+              canProceed = true; // 不正解メッセージを非表示にしたら進行を有効にする
               getNextQuestion();
             });
           }
@@ -44,27 +44,32 @@ $(document).ready(function() {
       });
     }
   }
-  
 
   function getNextQuestion() {
-    $.ajax({
-      type: 'GET',
-      url: '/next_question',
-      success: function(nextQuestion) {
-        // 次の問題を表示
-        if (nextQuestion) {
-          $('.quiz-question p').text(nextQuestion.content);
-          updateChoices(nextQuestion.choices);
-        } else {
-          alert('次の問題が見つかりませんでした。');
+    if (currentQuestion <= totalQuestions) {
+      $.ajax({
+        type: 'GET',
+        url: '/next_question',
+        success: function(nextQuestion) {
+          if (nextQuestion) {
+            $('.current-number p').text(currentQuestion + '/' + totalQuestions); // 現在の問題番号を表示
+            $('.question-word p').text(nextQuestion.content); // 質問の内容を表示
+            updateChoices(nextQuestion.choices);
+            canProceed = true; // 次の問題を表示してから進行を許可
+            currentQuestion++;
+          } else {
+            console.log('次の問題が見つかりませんでした。'); // コンソールにメッセージを表示
+          }
         }
-      }
-    });
+      });
+    } else {
+      console.log('クイズ終了。'); // コンソールにメッセージを表示
+    }
   }
 
   function updateChoices(choices) {
     // 選択肢のリストをクリア
-    $('.quiz-question ul').empty();
+    $('.question-choice ul').empty();
 
     if (choices && choices.length > 0) {
       choices.forEach(function(choice) {
@@ -77,12 +82,10 @@ $(document).ready(function() {
 
         // 選択肢をクリックしたら回答処理を行う
         li.on('click', function() {
-          if (!canProceed) {
-            handleAnswerClick(choice.id);
-          }
+          handleAnswerClick(choice.id);
         });
 
-        $('.quiz-question ul').append(li);
+        $('.question-choice ul').append(li);
       });
     }
   }
