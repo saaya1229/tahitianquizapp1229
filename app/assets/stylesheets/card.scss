@@ -21,12 +21,12 @@ $avatar-size: 32px;
     .question{
       padding: 20px 0;
 
-      &_title {
+      .question-title {
         font-size: 12px;
         color: rgba(150, 156, 172, 1);
       }
 
-      &_word {
+      .question-word {
         font-size: 20px;
       }
 
