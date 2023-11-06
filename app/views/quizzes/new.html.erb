@@ -1,5 +1,3 @@
-<%= javascript_pack_tag 'quiz' %>
-
 <div class="container">
   <div class="card">
     <div class="current-number">
@@ -12,6 +10,7 @@
       </div>
 
       <div class="message-container">
+        <p class="pre-choice-message">一致するタヒチ語を選んでください</p>
         <!-- 正解メッセージ -->
         <p class="correct-message" style="display: none;">正解です！</p>
         <!-- 不正解メッセージ -->
@@ -33,6 +32,4 @@
     </div>
   </div>
 </div>
-
-
-
+<%= javascript_pack_tag 'quiz' %>

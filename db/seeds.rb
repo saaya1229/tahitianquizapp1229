@@ -8,11 +8,11 @@
 
 # 問題と選択肢を生成
 10.times do |i|
-  question = Question.create(content: "質問#{i + 1}")
-  
+  question = Question.create(content: "問題#{i + 1}")
+
   # 問題に対する選択肢を作成
   2.times do |j|
-    correct = (j == 0) # 最初の選択肢を正解にする例
-    question.choices.create(content: "選択肢#{j + 1}", correct: correct)
+    correct = (j == 0)  # 最初の選択肢を正解にする
+    question.choices.create(content: "チョイス#{j + 1} for 問題#{i + 1}", correct: correct)
   end
 end

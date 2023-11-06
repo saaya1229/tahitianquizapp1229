@@ -9,17 +9,22 @@ $avatar-size: 32px;
 
   .card {
     background-color: rgba(255, 255, 255, 1);
-    margin: 80px 0;
+    margin: 80px auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     justify-content: center;
+    width: 70vw;
 
     .current-number{
       text-align: center;
     }
 
     .question{
-      padding: 20px 0;
+      padding: 24px 32px;
+      font-weight: 600;
+      @media (max-width: 768px) {
+        padding: 10px;
+      }
 
       .question-title {
         font-size: 12px;
@@ -28,10 +33,16 @@ $avatar-size: 32px;
 
       .question-word {
         font-size: 20px;
+        margin-bottom: 20px;
       }
 
       .message-container{
         font-size: 12px;
+
+        .pre-choice-message{
+          font-size: 12px;
+          color: rgba(150, 156, 172, 1);
+        }
 
         .correct-message{
           color: rgba(81, 171, 125, 1);
@@ -55,11 +66,17 @@ $avatar-size: 32px;
 
         li {
           margin: 5px; // 選択肢の間隔を設定
-          padding: 10px; // 選択肢の内側の余白を設定
+          padding: 16px; // 選択肢の内側の余白を設定
           border: 1px solid rgba(236, 239, 244, 1); // ボーダーのスタイルと色を設定
           border-radius: 8px; // ボーダーの角を丸くする
           cursor: pointer; // マウスカーソルをポインターに変更
           flex: 1; // 各アイテムを均等に配置
+        }
+      }
+
+      @media (max-width: 768px) {
+        ul {
+          flex-direction: column; // スマートフォン表示では縦に配置
         }
       }
     }

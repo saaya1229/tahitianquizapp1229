@@ -1,10 +1,13 @@
 class QuizzesController < ApplicationController
-  def index
-    @question = Question.first
+  def new
+    shuffled_question_ids = Question.pluck(:id).shuffle
+    session[:shuffled_question_ids] = shuffled_question_ids
+    @question = load_next_question
   end
 
-  def new
-    @question = Question.includes(:choices).order("RANDOM()").first
+  def load_next_question
+    question_id = session[:shuffled_question_ids].pop
+    Question.includes(:choices).find(question_id)
   end
 
   def check_answer
@@ -40,9 +43,7 @@ class QuizzesController < ApplicationController
   end
 
   def next_question
-    # 次の問題を取得するロジック
-    @next_question = Question.includes(:choices).order("RANDOM()").first
-  
+    @next_question = load_next_question
     respond_to do |format|
       format.json { render json: next_question_data }
     end

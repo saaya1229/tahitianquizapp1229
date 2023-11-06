@@ -8,11 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function initializeQuiz() {
     getNextQuestion(); // 最初の問題を取得して表示
+    $('.pre-choice-message').show();
   }
 
   function handleAnswerClick(choiceId) {
     if (canProceed) {
       canProceed = false;
+      $('.pre-choice-message').hide(); // 選択前の説明メッセージを非表示にする
       $.ajax({
         type: 'POST',
         url: '/check_answer',
@@ -47,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function getNextQuestion() {
     if (currentQuestion <= totalQuestions) {
+      $('.pre-choice-message').show();
       $.ajax({
         type: 'GET',
         url: '/next_question',
