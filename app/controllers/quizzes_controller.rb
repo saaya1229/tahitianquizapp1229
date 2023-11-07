@@ -14,9 +14,9 @@ class QuizzesController < ApplicationController
     # ユーザーの回答をチェックし、正誤判定を行うロジック
     # ここで正解不正解の判定ロジックを実行
     if answer_is_correct(params[:choice_id].to_i)
-      @result_message = '正解です！'
+      @result_message = '正解です！おめでとう！'
     else
-      @result_message = '不正解です。'
+      @result_message = '残念！'
     end
   
     # 正解不正解の情報を含むJSONを返す
