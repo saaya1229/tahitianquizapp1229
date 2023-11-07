@@ -35,9 +35,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 1000); // 1000ミリ秒 (1秒) 後に非表示にする
           } else {
             $('.incorrect-message').show(); // 不正解のメッセージを表示
+            setTimeout(function() {
+              $('#next-question-button').show();
+              $('.next-question').slideDown(200); // ボタンをスライドイン
+            }, 1000); // 1000ミリ秒（1秒）後に実行
             // 不正解の場合、クリックで次の問題に進むようにイベントリスナーを設定
-            $('.question-choice').one('click', function() {
+            $('#next-question-button').one('click', function() {
               $('.incorrect-message').hide(); // メッセージを非表示に
+              $('#next-question-button').hide(); // ボタンを非表示に
+              $('.next-question').hide();
               canProceed = true; // 不正解メッセージを非表示にしたら進行を有効にする
               getNextQuestion();
             });
