@@ -5,5 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Choice.create(content: "選択肢1", correct: true, question_id: 1)
-Choice.create(content: "選択肢2", correct: false, question_id: 1)
+
+10.times do |i|
+  question = Question.create(content: "問題#{i + 1}")
+
+  # 選択肢を生成
+  choices = [
+    { content: "選択肢1 for 問題#{i + 1}", correct: true },
+    { content: "選択肢2 for 問題#{i + 1}", correct: false },
+  ]
+
+  # 選択肢を一括で作成
+  question.choices.create(choices)
+end

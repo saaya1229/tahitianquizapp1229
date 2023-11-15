@@ -1,0 +1,120 @@
+@import './variables';
+
+$heart-size: 16px;
+
+$avatar-size: 32px;
+
+.card {
+  background-color: rgba(255, 255, 255, 1);
+  margin: 80px auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  justify-content: center;
+  width: 70vw;
+
+  .current-number{
+    text-align: center;
+  }
+
+  .question{
+    padding: 24px 32px;
+    font-weight: 600;
+    @media (max-width: 768px) {
+      padding: 10px;
+    }
+
+    .question-title {
+      font-size: 12px;
+      color: rgba(150, 156, 172, 1);
+    }
+
+    .question-word {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .message-container{
+      font-size: 12px;
+
+      .pre-choice-message{
+        font-size: 12px;
+        color: rgba(150, 156, 172, 1);
+      }
+
+      .correct-message{
+        color: rgba(81, 171, 125, 1);
+      }
+
+      .incorrect-message{
+        color: rgba(160, 11, 40, 1);
+      }
+    }
+
+  .question-choice {
+    input[type="radio"] {
+      display: none; /* ラジオボタンを非表示にする */
+    }
+  
+    ul {
+      display: flex;
+      flex-direction: row; // 要素を水平に配置
+      list-style: none; // リストのマーカーを非表示
+      padding: 0; // パディングをリセット
+
+      .choice {
+        margin: 5px; // 選択肢の間隔を設定
+        padding: 16px; // 選択肢の内側の余白を設定
+        border: 1px solid rgba(236, 239, 244, 1); // ボーダーのスタイルと色を設定
+        border-radius: 8px; // ボーダーの角を丸くする
+        cursor: pointer; // マウスカーソルをポインターに変更
+        flex: 1; // 各アイテムを均等に配置
+      }
+
+      .correct-choice {
+        background-color: rgba(234, 251, 244, 1); /* 正解の背景色 */
+        position: relative; /* 相対位置指定 */
+        margin: 5px; // 選択肢の間隔を設定
+        padding: 16px; // 選択肢の内側の余白を設定
+        border: 1px solid rgba(131, 229, 184, 1); // ボーダーのスタイルと色を設定
+        border-radius: 8px; // ボーダーの角を丸くする
+        flex: 1; // 各アイテムを均等に配置
+      }
+      .correct-choice::before {
+        content: url('/assets/Check.svg');
+        width: 24px; /* 任意の幅を指定 */
+        height: 24px; /* 任意の高さを指定 */
+        position: absolute; /* 絶対位置指定 */
+        top: 50%; /* 上端の中央に配置 */
+        right: 5%;
+        transform: translate(-50%, -50%); /* 中央揃え */
+      }
+
+      .incorrect-choice {
+        position: relative; /* 相対位置指定 */
+        margin: 5px; // 選択肢の間隔を設定
+        padding: 16px; // 選択肢の内側の余白を設定
+        border: 1px solid rgba(238, 128, 120, 1); // ボーダーのスタイルと色を設定
+        border-radius: 8px; // ボーダーの角を丸くする
+        flex: 1; // 各アイテムを均等に配置
+      }
+
+      .incorrect-choice::before {
+        content: url('/assets/Close.svg');
+        width: 24px; /* 任意の幅を指定 */
+        height: 24px; /* 任意の高さを指定 */
+        position: absolute; /* 絶対位置指定 */
+        top: 50%; /* 上端の中央に配置 */
+        right: 5%;
+        transform: translate(-50%, -50%); /* 中央揃え */
+      }
+    }
+
+    @media (max-width: 768px) {
+      ul {
+        flex-direction: column; // スマートフォン表示では縦に配置
+      }
+    }
+  }
+
+  }
+}

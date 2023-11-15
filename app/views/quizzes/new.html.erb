@@ -1,7 +1,38 @@
-<h1>クイズを始めます</h1>
-<p><%= @question.content %></p>
-<ul>
-  <% @question.choices.each do |choice| %>
-    <li><%= choice.content %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="card">
+    <div class="current-number">
+      <p><%= @current_question_number %></p> <!-- 現在の問題番号 -->
+    </div>
+    <div class="question">
+      <div class="question-title">問題</div>
+      <div class="question-word">
+        <p><%= @question.content %></p> <!-- 現在の問題の内容 -->
+      </div>
+
+      <div class="message-container">
+        <p class="pre-choice-message">一致するタヒチ語を選んでください</p>
+        <!-- 正解メッセージ -->
+        <p class="correct-message" style="display: none;">正解です！</p>
+        <!-- 不正解メッセージ -->
+        <p class="incorrect-message" style="display: none;">残念！</p>
+      </div>
+
+      <div class="question-choice">
+        <ul>
+          <% @question.choices.each do |choice| %>
+            <li data-choice-id="<%= choice.id %>">
+              <input type="radio" name="selected_choice" id="choice_<%= choice.id %>" value="<%= choice.id %>">
+              <label for="choice_<%= choice.id %>">
+                <%= choice.content %>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="next-question" style="display: none;">
+  <button button id="next-question-button" style="display: none;">次の問題へ</button>
+</div>
+<%= javascript_pack_tag 'quiz' %>
