@@ -61,13 +61,51 @@ $avatar-size: 32px;
       list-style: none; // リストのマーカーを非表示
       padding: 0; // パディングをリセット
 
-      li {
+      .choice {
         margin: 5px; // 選択肢の間隔を設定
         padding: 16px; // 選択肢の内側の余白を設定
         border: 1px solid rgba(236, 239, 244, 1); // ボーダーのスタイルと色を設定
         border-radius: 8px; // ボーダーの角を丸くする
         cursor: pointer; // マウスカーソルをポインターに変更
         flex: 1; // 各アイテムを均等に配置
+      }
+
+      .correct-choice {
+        background-color: rgba(234, 251, 244, 1); /* 正解の背景色 */
+        position: relative; /* 相対位置指定 */
+        margin: 5px; // 選択肢の間隔を設定
+        padding: 16px; // 選択肢の内側の余白を設定
+        border: 1px solid rgba(131, 229, 184, 1); // ボーダーのスタイルと色を設定
+        border-radius: 8px; // ボーダーの角を丸くする
+        flex: 1; // 各アイテムを均等に配置
+      }
+      .correct-choice::before {
+        content: url('/assets/Check.svg');
+        width: 24px; /* 任意の幅を指定 */
+        height: 24px; /* 任意の高さを指定 */
+        position: absolute; /* 絶対位置指定 */
+        top: 50%; /* 上端の中央に配置 */
+        right: 5%;
+        transform: translate(-50%, -50%); /* 中央揃え */
+      }
+
+      .incorrect-choice {
+        position: relative; /* 相対位置指定 */
+        margin: 5px; // 選択肢の間隔を設定
+        padding: 16px; // 選択肢の内側の余白を設定
+        border: 1px solid rgba(238, 128, 120, 1); // ボーダーのスタイルと色を設定
+        border-radius: 8px; // ボーダーの角を丸くする
+        flex: 1; // 各アイテムを均等に配置
+      }
+
+      .incorrect-choice::before {
+        content: url('/assets/Close.svg');
+        width: 24px; /* 任意の幅を指定 */
+        height: 24px; /* 任意の高さを指定 */
+        position: absolute; /* 絶対位置指定 */
+        top: 50%; /* 上端の中央に配置 */
+        right: 5%;
+        transform: translate(-50%, -50%); /* 中央揃え */
       }
     }
 

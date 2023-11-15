@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   end
 
   def load_next_question
-    question_id = session[:shuffled_question_ids].pop
+    question_id = session[:shuffled_question_ids].shift
     Question.includes(:choices).find(question_id)
   end
 
@@ -14,17 +14,17 @@ class QuizzesController < ApplicationController
     # ユーザーの回答をチェックし、正誤判定を行うロジック
     # ここで正解不正解の判定ロジックを実行
     if answer_is_correct(params[:choice_id].to_i)
-      @result_message = '正解です！おめでとう！'
+      @result_message = '正解です！'
     else
       @result_message = '残念！'
     end
-  
+
     # 正解不正解の情報を含むJSONを返す
     response_data = {
       correct: answer_is_correct(params[:choice_id].to_i),
       message: @result_message
     }
-  
+
     respond_to do |format|
       format.json { render json: response_data }
     end
@@ -33,12 +33,12 @@ class QuizzesController < ApplicationController
   def answer_is_correct(choice_id)
     # 選択肢のデータを取得
     choice = Choice.find(choice_id)
-  
+
     # 選択肢が正解かどうかを確認
     if choice.correct?
       return true  # 正解の場合
     else
-      return false  # 不正解の場合
+      return false
     end
   end
 
@@ -48,9 +48,8 @@ class QuizzesController < ApplicationController
       format.json { render json: next_question_data }
     end
   end
-  
+
   private
-  
   def next_question_data
     if @next_question
       {
@@ -67,5 +66,4 @@ class QuizzesController < ApplicationController
       nil
     end
   end
-  
 end

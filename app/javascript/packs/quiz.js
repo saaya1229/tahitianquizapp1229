@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
   function handleAnswerClick(choiceId) {
     if (canProceed) {
       canProceed = false;
-      $('.pre-choice-message').hide(); // 選択前の説明メッセージを非表示にする
+      $('.pre-choice-message').hide();
+
       $.ajax({
         type: 'POST',
         url: '/check_answer',
@@ -25,26 +26,31 @@ document.addEventListener("DOMContentLoaded", function() {
         dataType: 'json',
         success: function(response) {
           if (response.correct) {
-            $('.correct-message').show(); // 正解のメッセージを表示
-            canProceed = false; // 正解メッセージが表示中は進行不可にする
-            // 正解メッセージを1秒で非表示にする
+            // 正解の選択肢を緑にする
+            $('li[data-choice-id="' + choiceId + '"]').removeClass('choice').addClass('correct-choice');
+            $('.correct-message').show();
+            canProceed = false;
+
             setTimeout(function() {
               $('.correct-message').hide();
-              canProceed = true; // 1秒後に進行を再び有効にする
+              canProceed = true;
               getNextQuestion();
-            }, 1000); // 1000ミリ秒 (1秒) 後に非表示にする
+            }, 1000);
           } else {
-            $('.incorrect-message').show(); // 不正解のメッセージを表示
+            // 不正解の選択肢を赤くする
+            $('li[data-choice-id="' + choiceId + '"]').removeClass('choice').addClass('incorrect-choice');
+            $('.incorrect-message').show();
+
             setTimeout(function() {
               $('#next-question-button').show();
-              $('.next-question').slideDown(200); // ボタンをスライドイン
-            }, 1000); // 1000ミリ秒（1秒）後に実行
-            // 不正解の場合、クリックで次の問題に進むようにイベントリスナーを設定
+              $('.next-question').slideDown(200);
+            }, 1000);
+
             $('#next-question-button').one('click', function() {
-              $('.incorrect-message').hide(); // メッセージを非表示に
-              $('#next-question-button').hide(); // ボタンを非表示に
+              $('.incorrect-message').hide();
+              $('#next-question-button').hide();
               $('.next-question').hide();
-              canProceed = true; // 不正解メッセージを非表示にしたら進行を有効にする
+              canProceed = true;
               getNextQuestion();
             });
           }
@@ -93,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
         li.on('click', function() {
           handleAnswerClick(choice.id);
         });
-
+        li.addClass('choice');
         $('.question-choice ul').append(li);
       });
     }

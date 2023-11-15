@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2023_10_28_081253) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "selected_choice"
   end
 
   add_foreign_key "answers", "choices"
