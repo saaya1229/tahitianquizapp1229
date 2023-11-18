@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (choices && choices.length > 0) {
       choices.forEach(function(choice) {
         var li = $('<li data-choice-id="' + choice.id + '">');
-        var radio = $('<input type="radio" name="selected_choice" value="' + choice.id + '">');
+        var radio = $('<input type="radio" id="selected_choice_' + choice.id + '" name="selected_choice" value="' + choice.id + '">');
         var label = $('<label for="selected_choice_' + choice.id + '">' + choice.content + '</label>');
 
         li.append(radio);
@@ -108,3 +108,28 @@ document.addEventListener("DOMContentLoaded", function() {
   // クイズを初期化
   initializeQuiz();
 });
+
+
+
+
+
+
+
+
+
+function selectAnswer(e){
+  const selectBtn = e.target;
+  const isCorrect = selectBtn.dataset.correct === "true";
+  if(isCorrect){
+    selectBtn.classList.add("correct");
+  }else{
+    selectBtn.classList.add("incorrect");
+  }
+  Array.from(answerButtons.children).forEach(button => {
+    if(button.dataset.correct === "true"){
+      button.classList.add("correct");
+    }
+    button.disabled = true;
+  });
+  nextButton.style.display = block;
+}
