@@ -15,6 +15,9 @@ class QuizzesController < ApplicationController
     # ここで正解不正解の判定ロジックを実行
     if answer_is_correct(params[:choice_id].to_i)
       @result_message = '正解です！'
+    # 正解数をセッションに追加
+    session[:correct_answers] ||= []
+    session[:correct_answers] << true
     else
       @result_message = '残念！'
     end
@@ -49,6 +52,21 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def result
+    @correct_answers = session[:correct_answers] || []  # セッションから取得し、存在しない場合は空の配列をセット
+    @total_questions = Question.count  # 総問題数
+  
+    # 正解数を計算
+    @num_correct_answers = @correct_answers.size
+  
+    # ...（他に必要な処理があれば追加）
+  
+    # 最終的な結果を表示するための処理などがあればここで行う
+  
+    # 最後にsessionをクリア（コメントアウトするか、正解数を取得した後にクリアする）
+    reset_session
+  end
+  
   private
   def next_question_data
     if @next_question

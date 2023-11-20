@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     } else {
       console.log('クイズ終了。'); // コンソールにメッセージを表示
+      window.location.href = '/result';
     }
   }
 
@@ -108,28 +109,3 @@ document.addEventListener("DOMContentLoaded", function() {
   // クイズを初期化
   initializeQuiz();
 });
-
-
-
-
-
-
-
-
-
-function selectAnswer(e){
-  const selectBtn = e.target;
-  const isCorrect = selectBtn.dataset.correct === "true";
-  if(isCorrect){
-    selectBtn.classList.add("correct");
-  }else{
-    selectBtn.classList.add("incorrect");
-  }
-  Array.from(answerButtons.children).forEach(button => {
-    if(button.dataset.correct === "true"){
-      button.classList.add("correct");
-    }
-    button.disabled = true;
-  });
-  nextButton.style.display = block;
-}
