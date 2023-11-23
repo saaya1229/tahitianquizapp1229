@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-10.times do |i|
+11.times do |i|
   question = Question.create(content: "問題#{i + 1}")
 
   # 選択肢を生成

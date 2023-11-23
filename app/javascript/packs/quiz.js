@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
     } else {
-      console.log('クイズ終了。'); // コンソールにメッセージを表示
+      window.location.href = '/result';
     }
   }
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (choices && choices.length > 0) {
       choices.forEach(function(choice) {
         var li = $('<li data-choice-id="' + choice.id + '">');
-        var radio = $('<input type="radio" name="selected_choice" value="' + choice.id + '">');
+        var radio = $('<input type="radio" id="selected_choice_' + choice.id + '" name="selected_choice" value="' + choice.id + '">');
         var label = $('<label for="selected_choice_' + choice.id + '">' + choice.content + '</label>');
 
         li.append(radio);
