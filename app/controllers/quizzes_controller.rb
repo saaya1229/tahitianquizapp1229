@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   end
 
   def load_next_question
-    question_id = session[:shuffled_question_ids].shift
+    question_id = session[:shuffled_question_ids].pop
     Question.includes(:choices).find(question_id)
   end
 

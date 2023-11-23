@@ -1,10 +1,7 @@
-<div class="container">
-  <div class="result-summary">
-    <h2>結果発表</h2>
-    <p>10問中<%= @num_correct_answers %>問正解！</p>
-    <!-- 他の結果情報があれば追加 -->
+<div class="finish">
+  <div class="score-wrap">
+    <p class="result-show">結果</p>
+    <p class="score">10問中<%= @num_correct_answers %>問正解！</p>
   </div>
-
-  <!-- 他の結果表示コンテンツがあれば追加 -->
-
+  <%= link_to 'ホームへ戻る', root_path, class: 'btn-primary' %>
 </div>

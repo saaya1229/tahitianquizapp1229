@@ -78,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
     } else {
-      console.log('クイズ終了。'); // コンソールにメッセージを表示
       window.location.href = '/result';
     }
   }
