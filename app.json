@@ -1,0 +1,16 @@
+{
+  "name": "quiz app",
+  "description": "This is quizapp",
+  "keywords": [],
+  "website": "",
+  "repository": "https://github.com/saaya1229/tahitianquizapp1229",
+  "env": {},
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }, {
+    "url": "heroku/ruby"
+  }]
+}
