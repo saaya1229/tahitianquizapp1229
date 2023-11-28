@@ -1,6 +1,3 @@
-import $ from 'jquery';
-import axios from 'axios';
-
 document.addEventListener("DOMContentLoaded", function() {
   let currentQuestion = 1; // 現在の問題番号をトラッキング
   let totalQuestions = 10; // クイズの総問題数
