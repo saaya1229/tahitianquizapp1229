@@ -80,7 +80,7 @@ $avatar-size: 32px;
         flex: 1; // 各アイテムを均等に配置
       }
       .correct-choice::before {
-        content: url('/assets/Check.svg');
+        content: asset-url('Check.svg');
         width: 24px; /* 任意の幅を指定 */
         height: 24px; /* 任意の高さを指定 */
         position: absolute; /* 絶対位置指定 */
@@ -99,7 +99,7 @@ $avatar-size: 32px;
       }
 
       .incorrect-choice::before {
-        content: url('/assets/Close.svg');
+        content: asset-url('Close.svg');
         width: 24px; /* 任意の幅を指定 */
         height: 24px; /* 任意の高さを指定 */
         position: absolute; /* 絶対位置指定 */
